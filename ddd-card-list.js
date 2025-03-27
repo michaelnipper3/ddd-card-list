@@ -68,12 +68,17 @@ export class DddCardList extends DDDSuper(I18NMixin(LitElement)) {
     return html`
 <div class="wrapper">
   <ddd-card 
-  title = "title test"
-  image = "image test"
-  link = "link test"
-  description="description test">
+  title = "Abington Campus"
+  image = "https://images.ctfassets.net/ni9rh5nu0d99/1paFaX2Dc7iHh9Z6K7mIim/1427b9970ff21dd9c8a770067638efc1/abington-02.jpg?fm=webp&w=1080&q=75"
+  link = "https://www.psu.edu/academics/campuses/abington"
+  description="Close to Philadelphia, Penn State Abington's suburban campus offers bachelor's degrees, athletics, and a diverse student community.">
 </ddd-card>
-  <slot></slot>
+<ddd-card
+  title = "Altoona Campus"
+  image = "https://images.ctfassets.net/ni9rh5nu0d99/6oBUNrVTNPJaoE9ahnVX2E/2c655bdcf28befdf81d5a24248a9dca5/altoona-01.jpg?fm=webp&w=1080&q=75"
+  link = "https://www.psu.edu/academics/campuses/altoona"
+  description = "In central Pennsylvania close to University Park, Penn State Altoona offers the appeal of a small college with the prestige of a major research university.">
+</ddd-card>
 </div>`;
   }
 

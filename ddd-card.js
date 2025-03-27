@@ -62,9 +62,16 @@ export class DddCard extends DDDSuper(I18NMixin(LitElement)) {
       .wrapper {
         margin: var(--ddd-spacing-2);
         padding: var(--ddd-spacing-4);
+        border: 2px solid var(--ddd-theme-default-slateMaxLight);
+        border-radius: var(--ddd-border-radius-md);
+        width: 400px;
       }
       h3 span {
         font-size: var(--ddd-card-label-font-size, var(--ddd-font-size-s));
+      }
+      img {
+        width: 100px;
+        height: auto;
       }
     `];
   }
@@ -73,7 +80,10 @@ export class DddCard extends DDDSuper(I18NMixin(LitElement)) {
   render() {
     return html`
 <div class="wrapper">
-  <h1>${this.description}</h1>
+  <img src="${this.image}" alt="${this.title}">
+  <h3><span>${this.title}</span></h3>
+  <p>${this.description}</p>
+  <a href="${this.link}">Explore</a>
   <slot></slot>
 </div>`;
   }
