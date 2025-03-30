@@ -22,8 +22,7 @@ export class DddCard extends DDDSuper(I18NMixin(LitElement)) {
     super();
     this.title = "";
     this.image = "#";
-    this.link = "#";
-    this.description = "#" 
+    this.link = "#"; 
     this.t = this.t || {};
     this.t = {
       ...this.t,
@@ -45,7 +44,6 @@ export class DddCard extends DDDSuper(I18NMixin(LitElement)) {
       title: { type: String },
       image: { type: String },
       link: { type: String },
-      description: { type: String },
     };
   }
 
@@ -64,13 +62,13 @@ export class DddCard extends DDDSuper(I18NMixin(LitElement)) {
         padding: var(--ddd-spacing-4);
         border: 2px solid var(--ddd-theme-default-slateMaxLight);
         border-radius: var(--ddd-border-radius-md);
-        width: 400px;
+        width: 200px;
       }
       h3 span {
         font-size: var(--ddd-card-label-font-size, var(--ddd-font-size-s));
       }
       img {
-        width: 100px;
+        width: 200px;
         height: auto;
       }
     `];
@@ -79,13 +77,13 @@ export class DddCard extends DDDSuper(I18NMixin(LitElement)) {
   // Lit render the HTML
   render() {
     return html`
-<div class="wrapper">
-  <img src="${this.image}" alt="${this.title}">
-  <h3><span>${this.title}</span></h3>
-  <p>${this.description}</p>
-  <a href="${this.link}">Explore</a>
-  <slot></slot>
-</div>`;
+    <div class="wrapper">
+      <img src="${this.image}" alt="${this.title}">
+      <h3><span>${this.title}</span></h3>
+      <slot></slot>
+      <a href="${this.link}" target = "__blank">Explore</a>
+      
+    </div>`;
   }
 
   /**
