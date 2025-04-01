@@ -71,6 +71,14 @@ export class DddCard extends DDDSuper(I18NMixin(LitElement)) {
         width: 200px;
         height: auto;
       }
+      .btn {
+        justify-content: center;
+        display: flex;
+        background-color: var(--ddd-theme-accent);
+        color: var(--ddd-theme-primary);
+        padding: var(--ddd-spacing-2);
+        cursor: pointer;
+      }
     `];
   }
 
@@ -81,8 +89,9 @@ export class DddCard extends DDDSuper(I18NMixin(LitElement)) {
       <img src="${this.image}" alt="${this.title}">
       <h3><span>${this.title}</span></h3>
       <slot></slot>
-      <a href="${this.link}" target = "__blank">Explore</a>
-      
+      <div class="btn">
+        <a href="${this.link}" target = "__blank"><button>Explore</button></a>
+      </div>
     </div>`;
   }
 
