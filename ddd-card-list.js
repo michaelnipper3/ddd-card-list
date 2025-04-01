@@ -3,7 +3,7 @@
  * @license Apache-2.0, see LICENSE for full text.
  */
 import { LitElement, html, css } from "lit";
-import { DDDSuper } from "@haxtheweb/d-d-d/d-d-d.js";
+import { DDD, DDDPulseEffectSuper } from "@haxtheweb/d-d-d/d-d-d.js";
 import { I18NMixin } from "@haxtheweb/i18n-manager/lib/I18NMixin.js";
 import "./ddd-card.js";
 /**
@@ -12,7 +12,7 @@ import "./ddd-card.js";
  * @demo index.html
  * @element ddd-card-list
  */
-export class DddCardList extends DDDSuper(I18NMixin(LitElement)) {
+export class DddCardList extends DDDPulseEffectSuper(I18NMixin(DDD)) {
 
   static get tag() {
     return "ddd-card-list";
@@ -21,6 +21,8 @@ export class DddCardList extends DDDSuper(I18NMixin(LitElement)) {
   constructor() {
     super();
     this.title = "";
+    this.image = "#";
+    this.link = "#";
     this.t = this.t || {};
     this.t = {
       ...this.t,
@@ -40,6 +42,8 @@ export class DddCardList extends DDDSuper(I18NMixin(LitElement)) {
     return {
       ...super.properties,
       title: { type: String },
+      image: { type: String },
+      link: { type: String },
     };
   }
 
@@ -59,6 +63,9 @@ export class DddCardList extends DDDSuper(I18NMixin(LitElement)) {
         display: flex;
         flex-wrap: wrap;
       }
+      div ::slotted(*) {
+        display: inline-block;
+      }
       h3 span {
         font-size: var(--ddd-card-list-label-font-size, var(--ddd-font-size-s));
       }
@@ -69,34 +76,91 @@ export class DddCardList extends DDDSuper(I18NMixin(LitElement)) {
   render() {
     return html`
     <div class="wrapper">
-      <ddd-card 
-      title = "Abington Campus"
-      image = "https://images.ctfassets.net/ni9rh5nu0d99/1paFaX2Dc7iHh9Z6K7mIim/1427b9970ff21dd9c8a770067638efc1/abington-02.jpg?fm=webp&w=1080&q=75"
-      link = "https://www.psu.edu/academics/campuses/abington">
-      <p>Close to Philadelphia, Penn State Abington's suburban campus offers bachelor's degrees, athletics, and a diverse student community.</p>  
-      </ddd-card>
-      <ddd-card
-        title = "Altoona Campus"
-        image = "https://images.ctfassets.net/ni9rh5nu0d99/6oBUNrVTNPJaoE9ahnVX2E/2c655bdcf28befdf81d5a24248a9dca5/altoona-01.jpg?fm=webp&w=1080&q=75"
-        link = "https://www.psu.edu/academics/campuses/altoona">
-        <p>In central Pennsylvania close to University Park, Penn State Altoona offers the appeal of a small college with the prestige of a major research university.</p>
-      </ddd-card>
-      <ddd-card
-        title = "Beaver Campus"
-        image = "https://images.ctfassets.net/ni9rh5nu0d99/C6YPZMqHyRaPeRrVTun8k/1ca61866afa1b3d903944a38ea34cecc/beaver-01.jpg?fm=webp&w=1080&q=75"
-        link = "https://www.psu.edu/academics/campuses/beaver">
-        <p>Situated on one hundred acres, Penn State Beaver offers several bachelor's degrees, on-campus housing, and varsity sports, all within easy reach of Pittsburgh.</p>
-      </ddd-card>
+      <slot></slot>
     </div>`;
   }
 
-  /**
-   * haxProperties integration via file reference
-   */
+ // haxProperty definition
   static get haxProperties() {
-    return new URL(`./lib/${this.tag}.haxProperties.json`, import.meta.url)
-      .href;
+    return {
+      type: "element",
+      canScale: true,
+
+      canEditSource: true,
+      gizmo: {
+        title: "Call to action",
+        description: "A simple button with a link to take action.",
+        icon: "image:crop-16-9",
+        color: "orange",
+        tags: ["Layout", "marketing", "button", "link", "url", "design", "cta"],
+        handles: [
+          {
+            type: "link",
+            source: "link",
+            title: "label",
+          },
+        ],
+        meta: {
+          author: "HAXTheWeb core team",
+        },
+      },
+      settings: {
+        configure: [
+          {
+            property: "label",
+            title: "Label",
+            description: "Link label",
+            inputMethod: "textfield",
+            required: true,
+          },
+          {
+            property: "link",
+            title: "Link",
+            description: "Enter a link to any resource",
+            inputMethod: "haxupload",
+            noVoiceRecord: true,
+            noCamera: true,
+            required: true,
+          },
+          {
+            property: "accentColor",
+            title: "Accent Color",
+            description: "An optional accent color.",
+            inputMethod: "colorpicker",
+            icon: "editor:format-color-fill",
+          },
+          {
+            property: "hideIcon",
+            title: "Hide icon",
+            description: "Hide the icon used to accent text",
+            inputMethod: "boolean",
+          },
+        ],
+        advanced: [
+          {
+            property: "icon",
+            title: "Icon",
+            description: "Action link icon",
+            inputMethod: "iconpicker",
+          },
+        ],
+      },
+      saveOptions: {
+        unsetAttributes: ["colors", "element-visible"],
+      },
+      demoSchema: [
+        {
+          tag: "simple-cta",
+          properties: {
+            label: "Click to learn more",
+            link: "https://haxtheweb.org/",
+          },
+          content: "",
+        },
+      ],
+    };
   }
+
 }
 
 globalThis.customElements.define(DddCardList.tag, DddCardList);

@@ -3,7 +3,7 @@
  * @license Apache-2.0, see LICENSE for full text.
  */
 import { LitElement, html, css } from "lit";
-import { DDDSuper } from "@haxtheweb/d-d-d/d-d-d.js";
+import { DDD, DDDPulseEffectSuper } from "@haxtheweb/d-d-d/d-d-d.js";
 import { I18NMixin } from "@haxtheweb/i18n-manager/lib/I18NMixin.js";
 
 /**
@@ -12,7 +12,7 @@ import { I18NMixin } from "@haxtheweb/i18n-manager/lib/I18NMixin.js";
  * @demo index.html
  * @element ddd-card
  */
-export class DddCard extends DDDSuper(I18NMixin(LitElement)) {
+export class DddCard extends DDDPulseEffectSuper(I18NMixin(DDD)) {
 
   static get tag() {
     return "ddd-card";
@@ -60,9 +60,10 @@ export class DddCard extends DDDSuper(I18NMixin(LitElement)) {
       .wrapper {
         margin: var(--ddd-spacing-2);
         padding: var(--ddd-spacing-4);
-        border: 2px solid var(--ddd-theme-default-slateMaxLight);
+        border: 2px solid var(--ddd-theme-primary);
         border-radius: var(--ddd-border-radius-md);
         width: 200px;
+        height: 90%;
       }
       h3 span {
         font-size: var(--ddd-card-label-font-size, var(--ddd-font-size-s));
@@ -74,10 +75,13 @@ export class DddCard extends DDDSuper(I18NMixin(LitElement)) {
       .btn {
         justify-content: center;
         display: flex;
-        background-color: var(--ddd-theme-accent);
-        color: var(--ddd-theme-primary);
+      }
+      button {
+        background-color: var(--ddd-theme-primary);
+        color: var(--ddd-theme-accent);
         padding: var(--ddd-spacing-2);
         cursor: pointer;
+        font-family: var(--ddd-font-navigation);
       }
     `];
   }
@@ -95,12 +99,84 @@ export class DddCard extends DDDSuper(I18NMixin(LitElement)) {
     </div>`;
   }
 
-  /**
-   * haxProperties integration via file reference
-   */
   static get haxProperties() {
-    return new URL(`./lib/${this.tag}.haxProperties.json`, import.meta.url)
-      .href;
+    return {
+      type: "element",
+      canScale: true,
+
+      canEditSource: true,
+      gizmo: {
+        title: "Call to action",
+        description: "A simple button with a link to take action.",
+        icon: "image:crop-16-9",
+        color: "orange",
+        tags: ["Layout", "marketing", "button", "link", "url", "design", "cta"],
+        handles: [
+          {
+            type: "link",
+            source: "link",
+            title: "label",
+          },
+        ],
+        meta: {
+          author: "HAXTheWeb core team",
+        },
+      },
+      settings: {
+        configure: [
+          {
+            property: "label",
+            title: "Label",
+            description: "Link label",
+            inputMethod: "textfield",
+            required: true,
+          },
+          {
+            property: "link",
+            title: "Link",
+            description: "Enter a link to any resource",
+            inputMethod: "haxupload",
+            noVoiceRecord: true,
+            noCamera: true,
+            required: true,
+          },
+          {
+            property: "accentColor",
+            title: "Accent Color",
+            description: "An optional accent color.",
+            inputMethod: "colorpicker",
+            icon: "editor:format-color-fill",
+          },
+          {
+            property: "hideIcon",
+            title: "Hide icon",
+            description: "Hide the icon used to accent text",
+            inputMethod: "boolean",
+          },
+        ],
+        advanced: [
+          {
+            property: "icon",
+            title: "Icon",
+            description: "Action link icon",
+            inputMethod: "iconpicker",
+          },
+        ],
+      },
+      saveOptions: {
+        unsetAttributes: ["colors", "element-visible"],
+      },
+      demoSchema: [
+        {
+          tag: "simple-cta",
+          properties: {
+            label: "Click to learn more",
+            link: "https://haxtheweb.org/",
+          },
+          content: "",
+        },
+      ],
+    };
   }
 }
 
