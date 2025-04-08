@@ -63,26 +63,43 @@ export class DddCard extends DDDPulseEffectSuper(I18NMixin(DDD)) {
         border: 2px solid var(--ddd-theme-accent);
         box-shadow: var(--ddd-boxShadow-xl);
         width: 400px;
-        height: 90%;
       }
       h3 span {
         font-size: var(--ddd-card-label-font-size, var(--ddd-font-size-s));
       }
       img {
         width: 400px;
-        height: auto;
+        height: 300px;
       }
       .image_head {
         background-color: var(--ddd-theme-primary);
+        height: 310px;
+      }
+      .btn-container {
+        display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 10px;
       }
       .btn {
-        justify-content: center;
-        display: flex;
+        width: 100%;
+        background-color: #005FA9;
         color: var(--ddd-theme-accent);
-        background-color: var(--ddd-theme-default-link);
+        padding: 12px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 5px;
         cursor: pointer;
-        font-family: var(--ddd-font-navigation);
-        font-size: var(--ddd-card-label-font-size, var(--ddd-font-size-xs));
+        margin-bottom: 15px;
+      }
+      .btn:hover {
+        background-color: var(--ddd-theme-primary);
+      }
+      .desc {
+        height: 125px;
+      }
+      a {
+        width: 100%;
       }
     `];
   }
@@ -95,12 +112,14 @@ export class DddCard extends DDDPulseEffectSuper(I18NMixin(DDD)) {
         <img src="${this.image}" alt="${this.title}">
       </div>
       <h3><span>${this.title}</span></h3>
-      <slot></slot>
-      <a href="${this.link}" target = "__blank">
-        <div class="btn">
-          <p>Explore ></p>
-        </div>
-      </a>
+      <div class="desc">
+        <slot></slot>
+      </div>
+      <div class="btn-container">
+        <a href="${this.link}" target = "__blank">
+          <button class="btn">Explore ></button>
+        </a>
+      </div>
     </div>`;
   }
 
