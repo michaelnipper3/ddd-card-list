@@ -59,13 +59,9 @@ export class DddCard extends DDDPulseEffectSuper(I18NMixin(DDD)) {
       }
       .wrapper {
         margin: var(--ddd-spacing-2);
-        padding: var(--ddd-spacing-4);
         border: 2px solid var(--ddd-theme-accent);
         box-shadow: var(--ddd-boxShadow-xl);
         width: 400px;
-      }
-      h3 span {
-        font-size: var(--ddd-card-label-font-size, var(--ddd-font-size-s));
       }
       img {
         width: 400px;
@@ -75,11 +71,18 @@ export class DddCard extends DDDPulseEffectSuper(I18NMixin(DDD)) {
         background-color: var(--ddd-theme-primary);
         height: 310px;
       }
+      .info {
+        padding-left: var(--ddd-spacing-3);
+        height: 175px;
+      }
+      h3 span {
+        font-size: var(--ddd-card-label-font-size, var(--ddd-font-size-s));
+      }
       .btn-container {
         display: flex;
-          justify-content: center;
-          align-items: center;
-          padding: 10px;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
       }
       .btn {
         width: 100%;
@@ -95,9 +98,6 @@ export class DddCard extends DDDPulseEffectSuper(I18NMixin(DDD)) {
       .btn:hover {
         background-color: var(--ddd-theme-primary);
       }
-      .desc {
-        height: 125px;
-      }
       a {
         width: 100%;
       }
@@ -111,8 +111,8 @@ export class DddCard extends DDDPulseEffectSuper(I18NMixin(DDD)) {
       <div class="image_head">
         <img src="${this.image}" alt="${this.title}">
       </div>
-      <h3><span>${this.title}</span></h3>
-      <div class="desc">
+      <div class="info">
+        <h3><span>${this.title}</span></h3>
         <slot></slot>
       </div>
       <div class="btn-container">
